@@ -1,5 +1,5 @@
 // Copyright (c) Megvii Inc. All rights reserved.
-#include <THC/THC.h>
+#include <ATen/cuda/CUDAContext.h>
 #include <cuda.h>
 #include <cuda_runtime_api.h>
 #include <torch/extension.h>
@@ -7,10 +7,9 @@
 
 #include <vector>
 
-extern THCState *state;
 
 #define CHECK_CUDA(x) \
-  TORCH_CHECK(x.type().is_cuda(), #x, " must be a CUDAtensor ")
+  TORCH_CHECK(x.is_cuda(), #x, " must be a CUDAtensor ")
 #define CHECK_CONTIGUOUS(x) \
   TORCH_CHECK(x.is_contiguous(), #x, " must be contiguous ")
 #define CHECK_INPUT(x) \
